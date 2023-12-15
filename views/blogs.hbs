@@ -13,13 +13,13 @@
             <header>
                 <ul class="menu">
                     <li>
-                        <a href="blogs.html" class="active">Blog</a>
+                        <a href="/blogs" class="active">Blog</a>
                     </li>
                     <li>
-                        <a href="works.html">Works</a>
+                        <a href="/works">Works</a>
                     </li>
                     <li>
-                        <a href="index.html">Contacts</a>
+                        <a href="/">Contacts</a>
                     </li>
                 </ul>
                 <button class="burger" onclick="toggleMenu()">
@@ -34,35 +34,22 @@
                         <h2>Blog</h2>
                     </div>
 
+                    {{#each posts}}
                     <div class="recent-container">
                         <div class="recent-card-container">
-                            <h3>Making a design system from scratch</h3>
+                            <h3>{{this.name}}</h3>
                             <div class="description">
-                                <p>12 Feb 2020</p>
+                                <p>{{this.date}}</p>
                                 <span class="line"></span>
-                                <p>Design, Pattern</p>
+                                <p>{{this.teg}}</p>
                             </div>
                             <p>
-                                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-                                sint. Velit officia consequat duis enim velit mollit. Exercitation
-                                veniam consequat sunt nostrud amet.
+                                {{this.text}}
                             </p>
-                        </div>
-
-                        <div class="recent-card-container">
-                            <h3>Creating pixel perfect icons in Figma</h3>
-                            <div class="description">
-                                <p>12 Feb 2020</p>
-                                <span class="line"></span>
-                                <p>Figma, Icon Design</p>
-                            </div>
-                            <p>
-                                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-                                sint. Velit officia consequat duis enim velit mollit. Exercitation
-                                veniam consequat sunt nostrud amet.
-                            </p>
-                        </div>
+                        </div>                        
                     </div>
+                    {{/each}}
+
                 </div>
             </section>
            

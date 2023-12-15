@@ -1,8 +1,10 @@
 const Sequelize = require("sequelize");
 const express = require("express");
-
 const app = express();
 const urlencoded = express.urlencoded({extended: false});
+const bodyParser = require('body-parser') 
+app.use(express.static('public')) 
+
 
 const sequelize = new Sequelize("lr1", "root", "", {
     dialect: 'mysql',
@@ -12,7 +14,7 @@ const sequelize = new Sequelize("lr1", "root", "", {
     }
 });
 
-const Posts = sequelize.define("posts", {
+const Post = sequelize.define("posts", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -36,6 +38,29 @@ const Posts = sequelize.define("posts", {
         allowNulll: false
     }
 });
+
+ 
+app.get('/blogs',  function(req, res) { 
+    Post.findAll({raw: true,  
+    }).then((date)=>{ 
+        console.log(date) 
+        res.render('blogs.hbs', {posts: date}) 
+    }) 
+}); 
+ 
+ 
+app.get('/works', function(req, res) { 
+    res.render('works.hbs'); 
+}); 
+ 
+app.get('/work-detailed', function(req, res) { 
+    res.render('work-detailed.hbs'); 
+}); 
+ 
+app.get('/', function (req, res){ 
+    res.render("index.hbs") 
+}); 
+ 
 
 sequelize.sync().then(() => {
     app.listen(3000);
