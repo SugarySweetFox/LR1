@@ -61,6 +61,59 @@ app.get('/', function (req, res){
     res.render("index.hbs") 
 }); 
  
+app.post('/blogs', urlencoded, function(req, res) {
+    const name = req.body.name;
+    const date = req.body.date;
+    const teg = req.body.teg;
+    const text = req.body.text;
+
+  
+    Post.create({name: name, date: date, teg: teg, text: text}).then(() => {
+        res.redirect('/blogs');  
+    })
+});
+
+app.get('/delete/:id', function(req, res){
+    const postsId = req.params.id;
+    Post.destroy({
+        where: {
+            id: postsId
+        }
+    }).then(() => {
+        res.redirect('/blogs');
+    })
+});
+
+
+app.post('/update', urlencoded, function(req, res) {
+    let id = req.body.id;
+    let name = req.body.name;
+    let date = req.body.date;
+    let teg = req.body.teg;
+    let text = req.body.text;
+
+    Post.update({name: name, date: date, teg: teg, text: text}, {
+        where: {
+            id: id
+        }
+    }).then(() => {
+        res.redirect('/blogs');
+    })
+});
+
+app.get('/update/:id', function(req, res) {
+    Post.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((date) => {
+        res.render('update.hbs', {posts: date})
+    })
+});
+
+
+
+
 
 sequelize.sync().then(() => {
     app.listen(3000);

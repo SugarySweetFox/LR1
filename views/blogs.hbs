@@ -46,13 +46,26 @@
                             <p>
                                 {{this.text}}
                             </p>
-                        </div>                        
+                        </div> 
+                        <a href="update/{{this.id}}">update</a>   
+                        <a href="delete/{{this.id}}">delete</a>                        
                     </div>
                     {{/each}}
 
                 </div>
             </section>
            
+
+            <form action="/blogs" method="post">
+                <input type="hidden" name="id" value="{{posts.id}}">
+                <input type="text" name="name" placeholder="name" value="{{posts.name}}">
+                <input type="date" name="date" value="{{posts.date}}">
+                <input type="text" name="teg" placeholder="teg" value="{{posts.teg}}">
+                <input type="text" name="text" placeholder="text" value="{{posts.text}}">
+                <button type="submit">Save</button>
+            </form>
+
+
         </div>
 
         <footer>
