@@ -5,6 +5,11 @@ const urlencoded = express.urlencoded({extended: false});
 const bodyParser = require('body-parser') 
 app.use(express.static('public')) 
 
+const TelegramBot = require('node-telegram-bot-api');
+
+const token = '6923261444:AAERtKQmcUCfZwJAmxYPIKfbcNEe6Xd5sqg';
+
+const bot = new TelegramBot(token, {polling: true});
 
 const sequelize = new Sequelize("lr1", "root", "", {
     dialect: 'mysql',
@@ -69,6 +74,7 @@ app.post('/blogs', urlencoded, function(req, res) {
 
   
     Post.create({name: name, date: date, teg: teg, text: text}).then(() => {
+        bot.sendMessage(931357676,"create"),
         res.redirect('/blogs');  
     })
 });
@@ -80,12 +86,13 @@ app.get('/delete/:id', function(req, res){
             id: postsId
         }
     }).then(() => {
+        bot.sendMessage(931357676,"delete"),
         res.redirect('/blogs');
     })
 });
 
 
-app.post('/update', urlencoded, function(req, res) {
+app.post('/update',  urlencoded, function(req, res) {
     let id = req.body.id;
     let name = req.body.name;
     let date = req.body.date;
@@ -97,6 +104,7 @@ app.post('/update', urlencoded, function(req, res) {
             id: id
         }
     }).then(() => {
+        bot.sendMessage(931357676,"update"),
         res.redirect('/blogs');
     })
 });
